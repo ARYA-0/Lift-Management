@@ -1,0 +1,84 @@
+import java.util.Scanner;
+
+public class ElevatorSimulation {
+    public static void main(String[] args) {
+        int pq1, pq2, pq3, mf1 = 6, mf2 = 10, mf3 = 12, ef1 = 0, ef2 = 0, ef3 = 0, f, mp = 15, ltl1, ltl2, ltl3, q1, q2, q3;
+        float tts = 15, ttl = 5, est1, est2, est3, tt1 = 30, tt2 = 50, tt3 = 60, qwt1, qwt2, qwt3, fst1, fst2, fst3;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of people in each lift queue:");
+        System.out.print("Lift 1: ");
+        pq1 = scanner.nextInt();
+        System.out.print("Lift 2: ");
+        pq2 = scanner.nextInt();
+        System.out.print("Lift 3: ");
+        pq3 = scanner.nextInt();
+
+        q1 = pq1 / 15;
+        q2 = pq2 / 15;
+        q3 = pq3 / 15;
+
+        System.out.println("Turn in Lift 1: " + q1);
+        System.out.println("Turn in Lift 2: " + q2);
+        System.out.println("Turn in Lift 3: " + q3);
+
+        qwt1 = q1 * 2 * tt1;
+        qwt2 = q2 * 2 * tt2;
+        qwt3 = q3 * 2 * tt3;
+
+        System.out.println("Waiting time for Lift 1: " + qwt1);
+        System.out.println("Waiting time for Lift 2: " + qwt2);
+        System.out.println("Waiting time for Lift 3: " + qwt3);
+
+        System.out.print("Enter the floor: ");
+        f = scanner.nextInt();
+
+        if (f < mf1) {
+            ef1 = mf1 - f;
+            ef2 = mf2 - f;
+            ef3 = mf3 - f;
+        } else if (f >= mf1 && f < mf2) {
+            ef1 = f - mf1;
+            ef2 = mf2 - f;
+            ef3 = mf3 - f;
+        } else if (f >= mf2 && f < mf3) {
+            ef1 = 0;
+            ef2 = f - mf2;
+            ef3 = mf3 - f;
+        } else if (f >= mf3 && f <= 15) {
+            ef1 = 0;
+            ef2 = 0;
+            ef3 = f - mf3;
+        }
+
+        System.out.println("Extra floors in Queue 1: " + ef1);
+        System.out.println("Extra floors in Queue 2: " + ef2);
+        System.out.println("Extra floors in Queue 3: " + ef3);
+
+        fst1 = ef1 * tts;
+        fst2 = ef2 * tts;
+        fst3 = ef3 * tts;
+
+        System.out.println("Time taken by stairs by Queue 1: " + fst1);
+        System.out.println("Time taken by stairs by Queue 2: " + fst2);
+        System.out.println("Time taken by stairs by Queue 3: " + fst3);
+
+        est1 = fst1 + qwt1 + tt1;
+        est2 = fst2 + qwt2 + tt2;
+        est3 = fst3 + qwt3 + tt3;
+
+        System.out.println("Total time by Lift 1: " + est1);
+        System.out.println("Total time by Lift 2: " + est2);
+        System.out.println("Total time by Lift 3: " + est3);
+
+        if (est1 < est2 && est1 < est3) {
+            System.out.println("Fastest option: Lift 1");
+        } else if (est2 < est3 && est2 < est1) {
+            System.out.println("Fastest option: Lift 2");
+        } else {
+            System.out.println("Fastest option: Lift 3");
+        }
+
+        scanner.close();
+    }
+}
